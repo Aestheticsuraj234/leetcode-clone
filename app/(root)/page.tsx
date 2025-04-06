@@ -1,9 +1,9 @@
-import Image from "next/image";
+import LandingPage from "@/features/main/components/landing-page";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      
+    <div className=" bg-background text-foreground container">
+      <LandingPage />
     </div>
   );
 }
