@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+```md
+# 🧠 CodeQuest – LeetCode Clone with Online Judge
 
-## Getting Started
+CodeQuest is a full-stack coding platform inspired by LeetCode. It allows users to solve programming problems with real-time code execution using Judge0. The project is built with **Next.js 15**, **TypeScript**, **Prisma**, **MongoDB**, and a self-hosted **Judge0 Docker instance**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+
+- 🧩 Problem management (title, description, constraints, examples, tags, difficulty)
+- 🖥️ Built-in code editor with syntax highlighting and language selection
+- ⚙️ Code execution via Judge0 (Docker hosted)
+- 🧪 Public & hidden test cases
+- 💡 Hints and Editorial support
+- ✅ User problem submission & completion tracking
+- 🔐 Authentication system (e.g. NextAuth or custom)
+- 🌐 REST or GraphQL API powered by Next.js App Router
+- 🗂️ Admin-friendly schema for easy question creation
+
+---
+
+## 📦 Tech Stack
+
+| Tech        | Description                            |
+|-------------|----------------------------------------|
+| Next.js 15  | React-based full-stack framework       |
+| TypeScript  | Strong typing for scalability          |
+| Prisma      | Elegant ORM for database access        |
+| MongoDB     | NoSQL database to store questions & users |
+| Judge0      | Open-source code execution engine      |
+| TailwindCSS | Styling with utility-first classes     |
+| Docker      | For local Judge0 instance              |
+
+---
+
+## 🧱 Database Schema (via Prisma)
+
+```ts
+model Problem {
+  id            String   @id @default(uuid())
+  title         String
+  description   String
+  difficulty    String
+  tags          String[]
+  completed     Boolean  @default(false)
+  userId        String
+  example       String
+  constraints   String
+  codeSnippet   String
+  testCases     String
+  hints         String
+  editorial     String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  problemSolved String[] @default([])
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧪 Example Problem
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```json
+{
+  "title": "Longest Substring Without Repeating Characters",
+  "description": "Given a string s, find the length of the longest substring without duplicate characters.",
+  "difficulty": "MEDIUM",
+  "tags": ["hash-table", "string", "sliding-window"],
+  "example": {
+    "input": "s = \"abcabcbb\"",
+    "output": "3",
+    "explanation": "The answer is \"abc\", with the length of 3."
+  },
+  "constraints": "0 <= s.length <= 5 * 10^4\ns consists of English letters, digits, symbols and spaces.",
+  "testCases": {
+    "public": [{ "input": "s = \"abcabcbb\"", "output": "3" }],
+    "hidden": [{ "input": "s = \"bbbbb\"", "output": "1" }]
+  }
+}
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Installation & Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# 1. Clone the repo
+git clone https://github.com/your-username/codequest.git
+cd codequest
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 2. Install dependencies
+npm install
 
-## Deploy on Vercel
+# 3. Setup environment variables
+cp .env.example .env.local
+# Add your MongoDB URI and other secrets
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 4. Migrate database (Prisma)
+npx prisma migrate dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 5. Run the app
+npm run dev
+```
+
+---
+
+## 🧑‍💻 Local Judge0 Setup (Docker)
+
+```bash
+# Clone Judge0 API
+git clone https://github.com/judge0/api.git
+cd api
+
+# Start with Docker Compose
+docker compose up -d
+```
+
+Update the `JUDGE0_API_URL` in your `.env.local` to point to your Docker container (e.g., `http://localhost:2358`).
+
+---
+
+## 📌 To-Do / Upcoming Features
+
+- ✅ MVP with question solving and test case evaluation
+- 🔒 Add full user auth & dashboard
+- 📈 Leaderboard & solution analytics
+- 🧠 Code explanation generator (AI-based)
+- 🛡️ Submission plagiarism check
+- 🧰 Admin panel for problem management
+
